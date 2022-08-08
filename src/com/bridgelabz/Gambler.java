@@ -5,23 +5,42 @@ public class Gambler {
 	public static final int BET_AMOUNT_PER_GAME = 1;
 	public static final int WON_CURRENT_BET = 1;// Used Switch Case Option
 	public static final int LOST_CURRENT_BET = 0;//Used Switch Case Option
+	public static final int NUM_OF_DAY_PLAYED_IN_MONTH = 20;
 
 	public static void main(String[] args) {
 		System.out.println("Welcome Gambling Stimulation Problem");
-		int playerCurrentBalance = PLAYER_BALANCE_PER_DAY ;
-		while(playerCurrentBalance>50&&playerCurrentBalance<150) {
-			//Choice value 0 means lost current game , 1 means won current bet
-			int choice = (int)(Math.random()*10 %2);
-			switch(choice){
-				case WON_CURRENT_BET:
-					playerCurrentBalance++;
-					break;
-				case LOST_CURRENT_BET:
-					playerCurrentBalance--;
-					break;
+		int investedAmount = NUM_OF_DAY_PLAYED_IN_MONTH*PLAYER_BALANCE_PER_DAY;
+		int totalEarnedOrLost = 0;
+		int day = 1;
+		while(day<=NUM_OF_DAY_PLAYED_IN_MONTH ) {
+			int playerCurrentBalance = PLAYER_BALANCE_PER_DAY ;
+			//System.out.println("Day "+day);	
+			while(playerCurrentBalance>50&&playerCurrentBalance<150) {
+				//Choice value 0 means lost current game , 1 means won current bet
+				int choice = (int)(Math.random()*10 %2);
+				switch(choice){
+					case WON_CURRENT_BET:
+						playerCurrentBalance++;
+						break;
+					case LOST_CURRENT_BET:
+						playerCurrentBalance--;
+						break;
+				}
+				//System.out.println(playerCurrentBalance);
 			}
-			System.out.println(playerCurrentBalance);
+			totalEarnedOrLost = totalEarnedOrLost + playerCurrentBalance;
+			System.out.println("Day "+day+"  Balance "+playerCurrentBalance);
+			day++;
 		}		
-		System.out.println("Player Balance is "+playerCurrentBalance);
+		//Display Monthly Earnings
+		if(investedAmount<=totalEarnedOrLost) {
+			int profit = totalEarnedOrLost - investedAmount;
+			System.out.println("You earned "+profit+" in this month");
+		}
+		//Display Monthly Loss
+		if(investedAmount>totalEarnedOrLost) {
+			int loss = investedAmount - totalEarnedOrLost;
+			System.out.println("You lost "+loss+" in this month");
+		}
 	}
 }
