@@ -12,6 +12,8 @@ public class Gambler {
 		int investedAmount = NUM_OF_DAY_PLAYED_IN_MONTH*PLAYER_BALANCE_PER_DAY;
 		int totalEarnedOrLost = 0;
 		int day = 1;
+		int profitdays = 0;
+		int lossdays = 0;
 		while(day<=NUM_OF_DAY_PLAYED_IN_MONTH ) {
 			int playerCurrentBalance = PLAYER_BALANCE_PER_DAY ;
 			//System.out.println("Day "+day);	
@@ -28,10 +30,17 @@ public class Gambler {
 				}
 				//System.out.println(playerCurrentBalance);
 			}
+			if(playerCurrentBalance==50) {
+				lossdays++;
+			}
+			else {
+				profitdays++;
+			}
 			totalEarnedOrLost = totalEarnedOrLost + playerCurrentBalance;
 			System.out.println("Day "+day+"  Balance "+playerCurrentBalance);
 			day++;
-		}		
+		}
+		System.out.println("In this month you won for "+profitdays+" days and lost for "+lossdays);		
 		//Display Monthly Earnings
 		if(investedAmount<=totalEarnedOrLost) {
 			int profit = totalEarnedOrLost - investedAmount;
